@@ -1,7 +1,8 @@
 function TodoToday({ toggleAddTodo }) {
     return (
-      <div className="w-[375px] h-[73px] relative overflow-hidden">
-        <h1 className="w-16 h-10 absolute top-[16px] left-[16px] text-2xl leading-10 tracking-normal text-black font-bold font-sans">
+      <>
+       <div className="w-[375px] h-[60px] relative overflow-hidden">
+        <h1 className="w-16 h-10 absolute top-2 left-[16px] text-2xl leading-10 tracking-normal text-black font-bold font-sans">
           Today
         </h1>
         <svg
@@ -9,7 +10,7 @@ function TodoToday({ toggleAddTodo }) {
           width="25"
           height="25"
           fill="currentColor"
-          className="bi bi-plus-circle absolute top-[25px] right-2 text-blue-500 cursor-pointer"
+          className="bi bi-plus-circle absolute top-2 right-3 text-blue-500 cursor-pointer hover:text-blue-800"
           viewBox="0 0 16 16"
           onClick={toggleAddTodo}
         >
@@ -17,6 +18,7 @@ function TodoToday({ toggleAddTodo }) {
           <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
         </svg> 
       </div>
+      </>
     );
   }
   

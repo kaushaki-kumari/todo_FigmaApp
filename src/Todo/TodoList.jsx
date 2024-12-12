@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-function TodoList({ todos, setTodos }) {
+function TodoList({ todos, setTodos ,deleteTodo }) {
   return (
     <ul className="list-group">
       {todos.map((todo) => (
@@ -9,6 +9,8 @@ function TodoList({ todos, setTodos }) {
           key={todo.id}
           todo={todo}
           setTodos={setTodos} 
+          todos={todos}
+          deleteTodo={deleteTodo}
         />
       ))}
     </ul>
