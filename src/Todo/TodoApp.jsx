@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import TodoToday from "./TodoToday";
 import AddEditTodo from "../Components/AddEditTodo";
 import TodoList from "./TodoList";
 import DeleteTodo from "../Components/DeleteTodo";
@@ -72,8 +71,7 @@ function TodoApp() {
   return (
     <div className="grid place-items-center h-screen bg-gray-100 overflow-hidden">
       <div className="h-[860px] relative bg-white shadow-lg">
-        <TodoHead />
-        <TodoToday toggleAddTodo={toggleAddTodo} />
+        <TodoHead toggleAddTodo={toggleAddTodo}/>
         {isAddTodoVisible && <AddEditTodo onAddTodo={addTodo} onCancel={hideAddTodo} />}
         <TodoList todos={todos} setTodos={setTodos} deleteTodo={handleDeleteClick} />
       </div>

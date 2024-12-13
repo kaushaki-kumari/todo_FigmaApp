@@ -5,10 +5,10 @@ import moment from "moment";
 function TodoItem({ todo, deleteTodo, editTask }) {
   const initialCheckedState = localStorage.getItem(`todo-${todo.id}-checked`) === "true" || false;
   const initialCircleColor = localStorage.getItem(`todo-${todo.id}-color`) || todo.alarmColor || "";
-  
+
   const [isChecked, setIsChecked] = useState(initialCheckedState);
   const [circleColor, setCircleColor] = useState(initialCircleColor);
-  
+
   const formatTime = (time) => {
     if (!time) return "";
     return moment(time).format("YYYY-MM-DD HH:mm");
@@ -35,9 +35,9 @@ function TodoItem({ todo, deleteTodo, editTask }) {
   const handleEditTask = () => editTask(todo);
 
   const handleDeleteTask = () => {
- deleteTodo(todo);
- localStorage.removeItem(`todo-${todo.id}-checked`);
- localStorage.removeItem(`todo-${todo.id}-color`);
+    deleteTodo(todo);
+    localStorage.removeItem(`todo-${todo.id}-checked`);
+    localStorage.removeItem(`todo-${todo.id}-color`);
   };
 
   useEffect(() => {

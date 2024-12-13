@@ -29,7 +29,7 @@ function TodoList({ todos, setTodos, deleteTodo }) {
 
   return (
     <div>
-            {isTodoListEmpty && (
+      {isTodoListEmpty && (
         <div className="text-2xl text-gray-500 flex justify-center pt-6">
           Add a task........
         </div>
@@ -43,7 +43,7 @@ function TodoList({ todos, setTodos, deleteTodo }) {
             setTodos={setTodos}
             todos={todos}
             deleteTodo={deleteTodo}
-            editTask={handleEdit} 
+            editTask={handleEdit}
           />
         ))}
       </ul>
