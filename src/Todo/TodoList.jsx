@@ -4,6 +4,7 @@ import AddEditTodo from "../Components/AddEditTodo";
 
 function TodoList({ todos, setTodos, deleteTodo }) {
   const [editingTodo, setEditingTodo] = useState(null);
+  const isTodoListEmpty = todos.length === 0;
 
   const handleEdit = (todo) => {
     setEditingTodo(todo);
@@ -28,6 +29,12 @@ function TodoList({ todos, setTodos, deleteTodo }) {
 
   return (
     <div>
+            {isTodoListEmpty && (
+        <div className="text-2xl text-gray-500 flex justify-center pt-6">
+          Add a task........
+        </div>
+      )}
+
       <ul className="list-group">
         {todos.map((todo) => (
           <TodoItem

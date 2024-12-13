@@ -29,7 +29,21 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
       ...prevDetails,
       [name]: value,
     }));
+
+    if (name === "title" && errors.title) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        title: "",
+      }));
   };
+
+  if (name === "alarmTime" && errors.alarmTime) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      alarmTime: "",
+    }));
+  }
+};
 
   const validateTodo = () => {
     const errors = {};

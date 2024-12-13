@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import moment from "moment";
 
 function TodoItem({ todo, deleteTodo, editTask }) {
-  const [isChecked, setIsChecked] = useState(false);
-  const [circleColor, setCircleColor] = useState(todo.alarmColor || "");
-
+  const initialCheckedState = localStorage.getItem(`todo-${todo.id}-checked`) === "true" || false;
+  const initialCircleColor = localStorage.getItem(`todo-${todo.id}-color`) || todo.alarmColor || "";
+  
+  const [isChecked, setIsChecked] = useState(initialCheckedState);
+  const [circleColor, setCircleColor] = useState(initialCircleColor);
+  
   const formatTime = (time) => {
     if (!time) return "";
-    return moment(time).format("HH:mm");
+    return moment(time).format("YYYY-MM-DD HH:mm");
   };
 
   const handleTaskCompleted = () => {
@@ -16,11 +19,15 @@ function TodoItem({ todo, deleteTodo, editTask }) {
       const newIsChecked = !prevIsChecked;
       const currentTime = new Date().getTime();
       const alarmTime = new Date(todo.alarmTime).getTime();
+
+      localStorage.setItem(`todo-${todo.id}-checked`, newIsChecked.toString());
       if (newIsChecked) {
         setCircleColor("green");
+        localStorage.setItem(`todo-${todo.id}-color`, "green");
       } else {
         const newCircleColor = currentTime > alarmTime ? "red" : todo.alarmColor || "";
         setCircleColor(newCircleColor);
+        localStorage.setItem(`todo-${todo.id}-color`, newCircleColor);
       }
       return newIsChecked;
     });
@@ -28,7 +35,9 @@ function TodoItem({ todo, deleteTodo, editTask }) {
   const handleEditTask = () => editTask(todo);
 
   const handleDeleteTask = () => {
-    deleteTodo(todo);
+ deleteTodo(todo);
+ localStorage.removeItem(`todo-${todo.id}-checked`);
+ localStorage.removeItem(`todo-${todo.id}-color`);
   };
 
   useEffect(() => {
