@@ -16,8 +16,7 @@ function TodoHead() {
       <div className="flex items-center space-x-1">
       <FaSignal className="text-black w-4 h-4" />
       <FaWifi className="text-black w-4 h-4" />
-        <FaBatteryFull className="text-black w-4 h-4" />
-       
+        <FaBatteryFull className="text-black w-4 h-4" />       
       </div>
     </div>
   );

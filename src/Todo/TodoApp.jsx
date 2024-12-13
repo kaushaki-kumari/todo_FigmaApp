@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import TodoToday from "./TodoToday"
-import AddTodo from "../Components/AddTodo";
+import TodoToday from "./TodoToday";
+import AddEditTodo from "../Components/AddEditTodo";
 import TodoList from "./TodoList";
 import DeleteTodo from "../Components/DeleteTodo";
 import TodoHead from "./TodoHead";
@@ -28,13 +28,13 @@ function TodoApp() {
     setIsAddTodoVisible(!isAddTodoVisible);
   };
 
-  const addTodo = (todo, alarmTime) => {
-    if (todo.trim()) {
+  const addTodo = (title, alarmTime) => {
+    if (title.trim()) {
       const newTodo = {
         id: Date.now(),
-        title: todo,
+        title,
         completed: false,
-        alarmTime: alarmTime, 
+        alarmTime,
       };
       setTodos((prevTodos) => [...prevTodos, newTodo]);
       setIsAddTodoVisible(false);
@@ -42,7 +42,7 @@ function TodoApp() {
   };
 
   const hideAddTodo = () => {
-    setIsAddTodoVisible(false); 
+    setIsAddTodoVisible(false);
   };
 
   const deleteTodo = (id) => {
@@ -52,8 +52,8 @@ function TodoApp() {
   };
 
   const handleDeleteClick = (todo) => {
-    setTodoToDelete(todo); 
-    setIsDeleteModalOpen(true); 
+    setTodoToDelete(todo);
+    setIsDeleteModalOpen(true);
   };
 
   const cancelDelete = () => {
@@ -63,23 +63,24 @@ function TodoApp() {
 
   const confirmDelete = () => {
     if (todoToDelete) {
-      deleteTodo(todoToDelete.id); 
-      setIsDeleteModalOpen(false); 
-      setTodoToDelete(null); 
+      deleteTodo(todoToDelete.id);
+      setIsDeleteModalOpen(false);
+      setTodoToDelete(null);
     }
   };
+
   return (
     <div className="grid place-items-center h-screen bg-gray-100 overflow-hidden">
       <div className="h-[860px] relative bg-white shadow-lg">
         <TodoHead />
         <TodoToday toggleAddTodo={toggleAddTodo} />
-        {isAddTodoVisible && <AddTodo addTodo={addTodo} hideAddTodo={hideAddTodo} />}
-        <TodoList todos={todos} setTodos={setTodos}  deleteTodo={handleDeleteClick}/>
+        {isAddTodoVisible && <AddEditTodo onAddTodo={addTodo} onCancel={hideAddTodo} />}
+        <TodoList todos={todos} setTodos={setTodos} deleteTodo={handleDeleteClick} />
       </div>
       <DeleteTodo
         isOpen={isDeleteModalOpen}
-        onClose={cancelDelete} 
-        onConfirm={confirmDelete} 
+        onClose={cancelDelete}
+        onConfirm={confirmDelete}
       />
     </div>
   );
