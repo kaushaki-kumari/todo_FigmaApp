@@ -2,9 +2,11 @@ import { IoIosAlarm, IoMdCreate, IoIosTrash } from "react-icons/io";
 import { useState, useEffect } from "react";
 import moment from "moment";
 
-function TodoItem({ todo, deleteTodo, editTask }) {
-  const initialCheckedState = localStorage.getItem(`todo-${todo.id}-checked`) === "true" || false;
-  const initialCircleColor = localStorage.getItem(`todo-${todo.id}-color`) || todo.alarmColor || "";
+function TodoItem({ todo, deleteTodo, onEdit }) {
+  const initialCheckedState =
+    localStorage.getItem(`todo-${todo.id}-checked`) === "true" || false;
+  const initialCircleColor =
+    localStorage.getItem(`todo-${todo.id}-color`) || todo.alarmColor || "";
 
   const [isChecked, setIsChecked] = useState(initialCheckedState);
   const [circleColor, setCircleColor] = useState(initialCircleColor);
@@ -32,7 +34,10 @@ function TodoItem({ todo, deleteTodo, editTask }) {
       return newIsChecked;
     });
   };
-  const handleEditTask = () => editTask(todo);
+
+  const handleEditTask = () => {
+    onEdit(todo);
+  };
 
   const handleDeleteTask = () => {
     deleteTodo(todo);
@@ -71,7 +76,12 @@ function TodoItem({ todo, deleteTodo, editTask }) {
           <div className="flex justify-between items-center">
             <span className="break-all w-10/12">{todo.title}</span>
             <div
-              className={`w-3 h-3 rounded-full mr-2 ${circleColor === "green" ? "bg-green-500" : circleColor === "red" ? "bg-red-500" : "bg-[#B678FF]"}`}
+              className={`w-3 h-3 rounded-full mr-2 ${circleColor === "green"
+                ? "bg-green-500"
+                : circleColor === "red"
+                  ? "bg-red-500"
+                  : "bg-[#B678FF]"
+                }`}
             ></div>
             <button onClick={handleEditTask}>
               <IoMdCreate className="text-black w-5 h-5 hover:text-blue-700" />

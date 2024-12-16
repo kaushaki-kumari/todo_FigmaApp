@@ -30,20 +30,13 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
       [name]: value,
     }));
 
-    if (name === "title" && errors.title) {
+    if ((name === "title" && errors.title) || (name === "alarmTime" && errors.alarmTime)) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        title: "",
+        [name]: "",
       }));
+    }
   };
-
-  if (name === "alarmTime" && errors.alarmTime) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      alarmTime: "",
-    }));
-  }
-};
 
   const validateTodo = () => {
     const errors = {};
@@ -65,7 +58,7 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
     return errors;
   };
 
-  const handleAddTodo = () => {
+  const handleTodoAction = () => {
     setIsSubmitted(true);
     const validationErrors = validateTodo();
 
@@ -73,15 +66,13 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
       setErrors(validationErrors);
       return;
     }
+
     if (todo) {
       onSaveTodo(todo.id, todoDetails.title, todoDetails.alarmTime);
     } else {
       onAddTodo(todoDetails.title, todoDetails.alarmTime);
     }
-    setTodoDetails({
-      title: "",
-      alarmTime: "",
-    });
+    setTodoDetails({ title: "", alarmTime: "" });
     setIsSubmitted(false);
   };
 
@@ -90,7 +81,7 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
 
   return (
     <div className="w-[340.62px] absolute bg-white top-32 left-[17.13px] rounded-lg border px-3 pt-2">
-      <h2 className="text-lg font-semibold">{todo ? "Edit Todo" :"Add Todo"} </h2>
+      <h2 className="text-lg font-semibold">{todo ? "Edit Todo" : "Add Todo"}</h2>
       <textarea
         name="title"
         className={`w-[298px] h-[148px] border rounded-lg mt-3 px-2 py-1 text-left resize-none 
@@ -109,8 +100,8 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
           name="alarmTime"
           value={todoDetails.alarmTime}
           onChange={handleInputChange}
-          min={currentDateTime} 
-          max={maxDateTime} 
+          min={currentDateTime}
+          max={maxDateTime}
           className={`w-full border rounded-lg mt-1 px-2 py-1 ${isSubmitted && errors.alarmTime ? "border-red-500" : "border-gray-300"
             }`}
         />
@@ -121,7 +112,9 @@ function AddEditTodo({ todo, onAddTodo, onSaveTodo, onCancel }) {
 
       <div className="flex my-4 text-[#006CFF] justify-between w-[298px] px-1 text-[18px]">
         <button onClick={onCancel}>Cancel</button>
-        <button className="font-semibold" onClick={handleAddTodo}>{todo ? "Edit" : "Add"}</button>
+        <button className="font-semibold" onClick={handleTodoAction}>
+          {todo ? "Save" : "Add"}
+        </button>
       </div>
     </div>
   );

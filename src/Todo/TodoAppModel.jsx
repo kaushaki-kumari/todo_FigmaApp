@@ -4,7 +4,7 @@ import TodoList from "./TodoList";
 import DeleteTodo from "../Components/DeleteTodo";
 import TodoHead from "./TodoHead";
 
-function TodoApp() {
+function TodoAppModel() {
   const [isAddTodoVisible, setIsAddTodoVisible] = useState(false);
   const [todos, setTodos] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -84,4 +84,4 @@ function TodoApp() {
   );
 }
 
-export default TodoApp;
+export default TodoAppModel;

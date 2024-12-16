@@ -1,7 +1,7 @@
-import TodoApp from "./Todo/TodoApp";
+import TodoAppModel from "./Todo/TodoAppModel";
 function App() {
   return (
-    <TodoApp/>
+    <TodoAppModel />
   )
 }
 

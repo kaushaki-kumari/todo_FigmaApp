@@ -1,30 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TodoItem from "./TodoItem";
 import AddEditTodo from "../Components/AddEditTodo";
 
 function TodoList({ todos, setTodos, deleteTodo }) {
-  const [editingTodo, setEditingTodo] = useState(null);
   const isTodoListEmpty = todos.length === 0;
+  const [currentTodo, setCurrentTodo] = useState(null);
 
-  const handleEdit = (todo) => {
-    setEditingTodo(todo);
+  const handleEditTodo = (todo) => {
+    setCurrentTodo(todo);
+  };
+  const handleSaveTodo = (id, title, alarmTime) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, title, alarmTime } : todo
+      )
+    );
+    setCurrentTodo(null);
   };
 
   const handleCancelEdit = () => {
-    setEditingTodo(null);
-  };
-
-  const handleSaveTodo = (id, title, alarmTime) => {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, title, alarmTime } : todo
-    );
-    setTodos(updatedTodos);
-    setEditingTodo(null);
-  };
-
-  const handleAddTodo = (title, alarmTime) => {
-    const newTodo = { id: Date.now(), title, alarmTime };
-    setTodos([...todos, newTodo]);
+    setCurrentTodo(null);
   };
 
   return (
@@ -40,19 +35,16 @@ function TodoList({ todos, setTodos, deleteTodo }) {
           <TodoItem
             key={todo.id}
             todo={todo}
-            setTodos={setTodos}
-            todos={todos}
             deleteTodo={deleteTodo}
-            editTask={handleEdit}
+            onEdit={handleEditTodo}
           />
         ))}
       </ul>
 
-      {editingTodo && (
+      {currentTodo && (
         <AddEditTodo
-          todo={editingTodo}
+          todo={currentTodo}
           onSaveTodo={handleSaveTodo}
-          onAddTodo={handleAddTodo}
           onCancel={handleCancelEdit}
         />
       )}
